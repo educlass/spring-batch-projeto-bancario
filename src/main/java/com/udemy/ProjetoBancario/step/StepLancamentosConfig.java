@@ -10,17 +10,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import com.udemy.ProjetoBancario.dto.Lancamentos;
+import com.udemy.ProjetoBancario.dto.LancamentoBancarioDto;
 
 @Configuration
 public class StepLancamentosConfig {
 	
 	@Bean
 	Step lancamentosStep(JobRepository jobRepository, 
-			PlatformTransactionManager platformTransactionManager, FlatFileItemReader<Lancamentos> lancamentosReader) {
+			PlatformTransactionManager platformTransactionManager, FlatFileItemReader<LancamentoBancarioDto> lancamentosReader) {
 		
 		return new StepBuilder("lancamentosStep", jobRepository)
-				.<Lancamentos, Lancamentos>chunk(1, platformTransactionManager)
+				.<LancamentoBancarioDto, LancamentoBancarioDto>chunk(1, platformTransactionManager)
 				.reader(lancamentosReader)
 				.processor(process())
 				.writer(writer())
@@ -28,7 +28,7 @@ public class StepLancamentosConfig {
 		
 	}
 
-	private ItemProcessor<? super Lancamentos, ? extends Lancamentos> process() {
+	private ItemProcessor<? super LancamentoBancarioDto, ? extends LancamentoBancarioDto> process() {
 		return item ->{
 			System.out.println("VEIO DO PROCESSOR"+item.toString());
 			return item;
@@ -36,7 +36,7 @@ public class StepLancamentosConfig {
 		
 	}
 
-	private ItemWriter<? super Lancamentos> writer() {
+	private ItemWriter<? super LancamentoBancarioDto> writer() {
 		return items -> items.forEach(System.out::println);
 	}
 

@@ -7,21 +7,21 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 
 import com.udemy.ProjetoBancario.config.PathsProperties;
-import com.udemy.ProjetoBancario.dto.Lancamentos;
+import com.udemy.ProjetoBancario.dto.LancamentoBancarioDto;
 
 @Configuration
 public class LancamenoReaderConfig {
 	
 	@Bean
-	FlatFileItemReader<Lancamentos> lancamentosReader(PathsProperties pathsProperties){
+	FlatFileItemReader<LancamentoBancarioDto> lancamentosReader(PathsProperties pathsProperties){
 		
-		return new FlatFileItemReaderBuilder<Lancamentos>()
+		return new FlatFileItemReaderBuilder<LancamentoBancarioDto>()
 				.name("lancamentosReader")
 				.linesToSkip(1)//pula primeira linha
 				.resource(new FileSystemResource(pathsProperties.getLancamentos()))
 				.delimited()
 				.names("dtLancamento", "descricao", "valor", "tipo")
-				.targetType(Lancamentos.class)
+				.targetType(LancamentoBancarioDto.class)
 				.build();
 		
 	}
