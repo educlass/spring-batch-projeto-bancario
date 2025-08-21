@@ -1,5 +1,9 @@
 package com.udemy.ProjetoBancario.step;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
@@ -11,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.udemy.ProjetoBancario.dto.LancamentoBancarioDto;
+import com.udemy.ProjetoBancario.entity.LancamentoBancarioEntity;
 
 @Configuration
 public class StepLancamentosConfig {
@@ -20,7 +25,7 @@ public class StepLancamentosConfig {
 			PlatformTransactionManager platformTransactionManager, FlatFileItemReader<LancamentoBancarioDto> lancamentosReader) {
 		
 		return new StepBuilder("lancamentosStep", jobRepository)
-				.<LancamentoBancarioDto, LancamentoBancarioDto>chunk(1, platformTransactionManager)
+				.<LancamentoBancarioDto, LancamentoBancarioEntity>chunk(1, platformTransactionManager)
 				.reader(lancamentosReader)
 				.processor(process())
 				.writer(writer())
@@ -28,15 +33,26 @@ public class StepLancamentosConfig {
 		
 	}
 
-	private ItemProcessor<? super LancamentoBancarioDto, ? extends LancamentoBancarioDto> process() {
+	private ItemProcessor<? super LancamentoBancarioDto, ? extends LancamentoBancarioEntity> process() {
 		return item ->{
-			System.out.println("VEIO DO PROCESSOR"+item.toString());
-			return item;
+			
+			LancamentoBancarioEntity entity = new LancamentoBancarioEntity();
+	        entity.setDescricao(item.getDescricao());
+	        entity.setValor(item.getValor());
+	        entity.setTipo(item.getTipo());
+	        entity.setDataLancamento(LocalDate.parse(item.getDtLancamento(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+	        entity.setStatus("FINALIZADO");
+	        entity.setCriadoEm(LocalDateTime.now());
+			
+	        
+	        System.out.println(entity.toString());
+	        
+			return entity;
 		};
 		
 	}
 
-	private ItemWriter<? super LancamentoBancarioDto> writer() {
+	private ItemWriter<? super LancamentoBancarioEntity> writer() {
 		return items -> items.forEach(System.out::println);
 	}
 

@@ -16,10 +16,10 @@ public class JobLancamentosConfig {
 	private JobRepository jobRepository;
 	
 	@Bean
-	Job processaLancamentos(Step lancamentosStep) {
+	Job processaLancamentos(Step preparaArquivoProcessadoStep) {
 		
 		return new JobBuilder("processaLancamentos", jobRepository)
-				.start(lancamentosStep)
+				.start(preparaArquivoProcessadoStep)
 				.incrementer(new RunIdIncrementer())
 				.build();
 		

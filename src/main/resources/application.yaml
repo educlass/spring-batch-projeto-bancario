@@ -19,7 +19,7 @@ app:
     driver-class-name: com.mysql.cj.jdbc.Driver		
   paths:
     arquivos:
-      lancamentos: /home/edu/Documentos/Desenvolvimento/estudos/dados/lancamentos.csv
+      lancamentos: /home/edu/Documentos/Desenvolvimento/estudos/dados/
       relatorios: /home/edu/Documentos/Desenvolvimento/estudos/dados/lancamentos.csv
 
 
