@@ -13,7 +13,8 @@ import lombok.Setter;
 @Component
 public class PathsProperties {
 	
-	private String lancamentos;
+	private String entrada;
+	private String emProcessamento;
     private String relatorios;
 
 }

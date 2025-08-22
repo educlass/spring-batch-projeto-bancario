@@ -1,6 +1,10 @@
 package com.udemy.ProjetoBancario.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,9 +12,11 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.udemy.ProjetoBancario.config.PathsProperties;
 import com.udemy.ProjetoBancario.entity.ArquivoProcessadoEntity;
 import com.udemy.ProjetoBancario.repository.ArquivoProcessadoRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -20,12 +26,19 @@ public class GlobalService {
 	@Autowired
 	private ArquivoProcessadoRepository arquivoProcessadoRepository;
 	
+	@Autowired
+	private PathsProperties pathsProperties;
+	
+	@Transactional(rollbackOn = {Exception.class})
 	public ArquivoProcessadoEntity processaArquivo(String item) {
+		
+		log.info("Inicio processamento do arquivo ", item);
 		
 		ArquivoProcessadoEntity entity =  new ArquivoProcessadoEntity();
 		
 		//lancamento_bancario_20250820_CNAB.cvs
-		String name = Paths.get(item).toFile().getName();
+		Path path = Paths.get(item);
+		String name = path.toFile().getName();
 		String[] partes = name.replace(".csv", "").split("_");
 		LocalDate data = LocalDate.parse(partes[2], DateTimeFormatter.ofPattern("yyyyMMdd"));
         String tipo = partes[3];
@@ -36,9 +49,13 @@ public class GlobalService {
 		entity.setTipoArquivo(tipo);
 		entity.setCriadoEm(LocalDateTime.now());
 		
-		log.info(entity.toString());
 		
-		//Falta mover arquivo
+		log.info("Movendo arquivo para processamento");
+		try {
+			Files.move(path, Paths.get(pathsProperties.getEmProcessamento()+name), StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			log.error("Erro", e);
+		}
 		
 		return arquivoProcessadoRepository.save(entity);
 	}

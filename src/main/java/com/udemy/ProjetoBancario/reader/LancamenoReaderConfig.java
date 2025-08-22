@@ -18,7 +18,7 @@ public class LancamenoReaderConfig {
 		return new FlatFileItemReaderBuilder<LancamentoBancarioDto>()
 				.name("lancamentosReader")
 				.linesToSkip(1)//pula primeira linha
-				.resource(new FileSystemResource(pathsProperties.getLancamentos()))
+				.resource(new FileSystemResource(pathsProperties.getEmProcessamento()))
 				.delimited()
 				.names("dtLancamento", "descricao", "valor", "tipo")
 				.targetType(LancamentoBancarioDto.class)

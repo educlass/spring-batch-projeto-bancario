@@ -30,7 +30,7 @@ public class ArquivoProcessadoTaskletConfig {
 			@Override
 			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
 				
-				log.info("Iniciando Varredura de arquivos");
+				
 				
 				listaArquivos.forEach(item -> {
 					

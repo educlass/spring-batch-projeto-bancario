@@ -11,15 +11,18 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   server:
     port: 8080
+  main:
+    allow-bean-definition-overriding: true
 app:
   datasource:
     jdbcUrl: jdbc:mysql://192.168.0.119:3306/MYETDS #url para 1 datasource e jdbcUrl para varios
-    username: curso
+    username: root
     password: 12345
     driver-class-name: com.mysql.cj.jdbc.Driver		
   paths:
     arquivos:
-      lancamentos: /home/edu/Documentos/Desenvolvimento/estudos/dados/
+      entrada: /home/edu/Documentos/Desenvolvimento/estudos/dados/entrada
+      emProcessamento: /home/edu/Documentos/Desenvolvimento/estudos/dados/entrada/emProcessamento/
       relatorios: /home/edu/Documentos/Desenvolvimento/estudos/dados/lancamentos.csv
 
 

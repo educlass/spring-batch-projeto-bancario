@@ -1,10 +1,8 @@
 package com.udemy.ProjetoBancario.step;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.repository.JobRepository;
@@ -31,7 +29,7 @@ public class StepArquivoProcessadoConfig {
 	
 	@Bean
 	List<String> listaArquivos(PathsProperties pathsProperties) {
-	    File pasta = new File(pathsProperties.getLancamentos());
+	    File pasta = new File(pathsProperties.getEntrada());
 	    File[] arquivos = pasta.listFiles((dir, name) -> name.startsWith("lancamento_bancario_") && name.endsWith(".csv"));
 
 	    return Arrays.stream(arquivos)
