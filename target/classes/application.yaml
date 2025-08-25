@@ -22,7 +22,7 @@ app:
   paths:
     arquivos:
       entrada: /home/edu/Documentos/Desenvolvimento/estudos/dados/entrada
-      emProcessamento: /home/edu/Documentos/Desenvolvimento/estudos/dados/entrada/emProcessamento/
+      emProcessamento: /home/edu/Documentos/Desenvolvimento/estudos/dados/entrada/emProcessamento
       relatorios: /home/edu/Documentos/Desenvolvimento/estudos/dados/lancamentos.csv
 
 

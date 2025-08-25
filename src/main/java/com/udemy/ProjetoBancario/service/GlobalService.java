@@ -1,5 +1,6 @@
 package com.udemy.ProjetoBancario.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -52,7 +53,7 @@ public class GlobalService {
 		
 		log.info("Movendo arquivo para processamento");
 		try {
-			Files.move(path, Paths.get(pathsProperties.getEmProcessamento()+name), StandardCopyOption.REPLACE_EXISTING);
+			Files.move(path, Paths.get(pathsProperties.getEmProcessamento()+File.separator+name), StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			log.error("Erro", e);
 		}

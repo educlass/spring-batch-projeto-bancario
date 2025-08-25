@@ -15,9 +15,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import com.udemy.ProjetoBancario.config.PathsProperties;
 
 @Configuration
-public class StepArquivoProcessadoConfig {
+public class StepPreparaArquivoProcessadoConfig {
 	
-	@Bean
+	@Bean(name = "preparaArquivoProcessadoStep")
 	Step preparaArquivoProcessadoStep(JobRepository jobRepository, 
 			PlatformTransactionManager platformTransactionManager, Tasklet preparaArquivoProcessadoTasklet) {
 		
