@@ -9,6 +9,7 @@ import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,5 +61,23 @@ public class GlobalService {
 		
 		return arquivoProcessadoRepository.save(entity);
 	}
+	
+	public void moverArquivos() {
+	    Path origem = Paths.get(pathsProperties.getEmProcessamento());
+	    Path destino = Paths.get(pathsProperties.getFinalizado());
+
+	    try (Stream<Path> arquivos = Files.list(origem)) {
+	        for (Path arquivo : (Iterable<Path>) arquivos::iterator) {
+	            if (Files.isRegularFile(arquivo)) {
+	                Path destinoFinal = destino.resolve(arquivo.getFileName());
+	                Files.move(arquivo, destinoFinal, StandardCopyOption.REPLACE_EXISTING);
+	                log.info("Movido: {}", arquivo.getFileName());
+	            }
+	        }
+	    } catch (IOException e) {
+	        log.error("Erro ao mover arquivos: {}", e.getMessage(), e);
+	    }
+	}
+
 
 }

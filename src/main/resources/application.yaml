@@ -23,6 +23,7 @@ app:
     arquivos:
       entrada: /home/edu/Documentos/Desenvolvimento/estudos/dados/entrada
       emProcessamento: /home/edu/Documentos/Desenvolvimento/estudos/dados/entrada/emProcessamento
+      finalizado: /home/edu/Documentos/Desenvolvimento/estudos/dados/entrada/finalizado
       relatorios: /home/edu/Documentos/Desenvolvimento/estudos/dados/lancamentos.csv
 
 

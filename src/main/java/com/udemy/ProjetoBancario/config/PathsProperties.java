@@ -15,6 +15,7 @@ public class PathsProperties {
 	
 	private String entrada;
 	private String emProcessamento;
+	private String finalizado;
     private String relatorios;
 
 }
