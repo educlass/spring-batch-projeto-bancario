@@ -9,6 +9,8 @@ import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +79,23 @@ public class GlobalService {
 	    } catch (IOException e) {
 	        log.error("Erro ao mover arquivos: {}", e.getMessage(), e);
 	    }
+	}
+
+	public void updateStatus(Map<String, Long> arquivoIdMap) {
+		
+		if(null != arquivoIdMap) {
+			
+			arquivoIdMap.forEach((nomeArquivo, id) -> {
+				
+				Optional<ArquivoProcessadoEntity> file = arquivoProcessadoRepository.findById(id);
+				ArquivoProcessadoEntity arquivoProcessadoEntity = file.get();
+				arquivoProcessadoEntity.setStatus("FINALIZADO");
+				arquivoProcessadoRepository.save(arquivoProcessadoEntity);
+				
+			});
+			
+		}
+		
 	}
 
 

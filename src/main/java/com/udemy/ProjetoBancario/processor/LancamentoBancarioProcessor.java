@@ -34,8 +34,6 @@ public class LancamentoBancarioProcessor implements ItemProcessor<LancamentoBanc
         Long idArquivo = arquivoIdMap.get(nomeArquivo);
         Optional<ArquivoProcessadoEntity> byId = arquivoProcessadoRepository.findById(idArquivo);
         
-        // TODO colocar validação se caso nao encotrar o arquivo na base deve ignorar o arquivo e mover pra pasta de erro
-		
 		LancamentoBancarioEntity entity = new LancamentoBancarioEntity();
         entity.setDescricao(item.getDescricao());
         entity.setValor(item.getValor());
