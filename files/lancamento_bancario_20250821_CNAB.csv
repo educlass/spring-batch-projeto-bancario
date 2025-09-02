@@ -1,0 +1,6 @@
+data_lancamento,descricao,valor,tipo
+2025-08-15,Pagamento de fornecedor,1500.00,debito
+2025-08-15,Recebimento de cliente,2500.00,credito
+2025-08-16,Taxa bancária,25.50,debito
+2025-08-16,Transferência recebida,1000.00,credito
+2025-08-17,Compra de insumos,780.00,debito
